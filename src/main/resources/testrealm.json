@@ -1,0 +1,94 @@
+{
+    "realm": "testrealm",
+    "enabled": true,
+    "users": [],
+    "roles": {
+        "realm": []
+    },
+    "defaultRoles": [],
+    "clients": [
+        {
+            "clientId": "my-client",
+            "enabled": true,
+            "publicClient": true,
+            "directAccessGrantsEnabled": true,
+            "implicitFlowEnabled": false,
+            "standardFlowEnabled": true,
+            "surrogateAuthRequired": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "protocol": "openid-connect",
+            "attributes": {
+                "include.in.token.scope" : "true",
+              "post.logout.redirect.uris": "+",
+              "backchannel.logout.session.required": "true",
+              "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "defaultClientScopes": [
+                "acr",
+                "roles"
+            ],
+            "redirectUris": [
+                "*"
+            ],
+            "webOrigins": [
+                "*"
+            ]
+        },
+        {
+            "clientId": "my-authz",
+            "enabled": true,
+            "publicClient": false,
+            "serviceAccountsEnabled": true,
+            "authorizationServicesEnabled": true,
+            "protocol": "openid-connect",
+            "clientAuthenticatorType": "client-secret",
+            "secret": "authz-secret",
+            "defaultClientScopes": [
+                "acr",
+                "roles"
+            ],
+            "protocolMappers": [
+                {
+                    "name": "Client ID",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-usersessionmodel-note-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "user.session.note": "clientId",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true",
+                        "claim.name": "clientId",
+                        "jsonType.label": "String"
+                    }
+                },
+                {
+                    "name": "Client Host",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-usersessionmodel-note-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "user.session.note": "clientHost",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true",
+                        "claim.name": "clientHost",
+                        "jsonType.label": "String"
+                    }
+                },
+                {
+                    "name": "Client IP Address",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-usersessionmodel-note-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "user.session.note": "clientAddress",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true",
+                        "claim.name": "clientAddress",
+                        "jsonType.label": "String"
+                    }
+                }
+            ]
+        }
+    ]
+}
